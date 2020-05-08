@@ -1,6 +1,9 @@
 """
 NLP use cases for streamlit. this was forked from Mark Marc Skov Madsen's reop here:
 https://github.com/MarcSkovMadsen/awesome-streamlit/tree/master/gallery/bokeh_experiments
+
+NLTK
+nltk.download('tagsets')
 """
 
 import bokeh
@@ -11,13 +14,26 @@ import markdown
 import pandas as pd
 import streamlit as st
 
+import nltk
+from nltk import word_tokenize
+
 
 def main():
     tabs = bokeh.models.Tabs(
-        tabs=[sentiment_tagging_panel()],
+        tabs=[
+            sentiment_tagging_panel(),
+            pos_tagging_panel()
+        ],
         sizing_mode='stretch_width'
     )
     st.bokeh_chart(tabs)
+
+    print(nltk.help.upenn_tagset())
+
+
+def pos_tagging_panel():
+    text = word_tokenize("And now for something completely different")
+    nltk.pos_tag(text)
 
 
 def sentiment_tagging_panel():
